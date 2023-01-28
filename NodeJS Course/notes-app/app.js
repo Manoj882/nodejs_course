@@ -28,33 +28,8 @@ const notes = require('./notes.js');
 
 yargs.version('1.2.3');
 
-
-// yargs.command({
-//     command: 'add',
-//     describe: 'Add two number',
-//     builder: {
-//         firstNumber: {
-//             describe: 'First Number',
-//             demandOption: true,
-//             type: 'number',
-//         },
-//         secondNumber: {
-//             describe: 'Second Number',
-//             demandOption: true,
-//             type: 'number',
-//         },
-//     },
-//     handler: function(argv){
-//         console.log("Result:", argv.firstNumber + argv.secondNumber);
-//     }
-// });
-
-// yargs.parse();
-
-
-
 yargs.command({
-    command: 'Read',
+    command: 'read',
     describe: 'Read a note',
     handler: function(){
         console.log('Reading a note');
@@ -87,9 +62,25 @@ yargs.command({
         },
     },
     handler: function(argv){
-    //     console.log('Title: ', argv.title);
-    //     console.log('Body: ', argv.body);
     notes.addNote(argv.title, argv.body);
+    }
+});
+
+
+//for remove note
+yargs.command({
+    command: 'remove',
+    desccribe: 'Remove note',
+    builder: {
+        title: {
+            describe: 'Remove Title',
+            demandOption: true,
+            type: 'string',
+        },
+    },
+    handler: function(argv){
+        notes.removeNote(argv.title);
+
     }
 });
 
