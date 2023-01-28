@@ -1,48 +1,11 @@
-// var doMultiply = require('./utils.js');
 var chalk = require('chalk');
 var validator = require('validator');
-const { number } = require('yargs');
 
 const yargs = require('yargs');
 
 const notes = require('./notes.js');
 
-// var multi = doMultiply(12, 10);
-
-// console.log(multi);
-// console.log(validator.isURL('https://mead.io'));
-
-// var greenMsg = chalk.red.italic('Error');
-// console.log(greenMsg);
-
-
-// const command = process.argv[2];
-// console.log(process.argv);
-
-// if(command === 'add'){
-//     console.log('Adding Note');
-// } else if(command === 'remove'){
-//     console.log('Remove note');
-// }
-
-
 yargs.version('1.2.3');
-
-yargs.command({
-    command: 'read',
-    describe: 'Read a note',
-    handler: function(){
-        console.log('Reading a note');
-    }
-});
-
-yargs.command({
-    command: 'list',
-    describe: 'list all notes',
-    handler: function(){
-        console.log('List all notes');
-    }
-});
 
 
 yargs.command({
@@ -61,7 +24,7 @@ yargs.command({
 
         },
     },
-    handler: function(argv){
+    handler(argv){
     notes.addNote(argv.title, argv.body);
     }
 });
@@ -78,9 +41,34 @@ yargs.command({
             type: 'string',
         },
     },
-    handler: function(argv){
+    handler(argv){
         notes.removeNote(argv.title);
 
+    }
+});
+
+//for list note
+yargs.command({
+    command: 'list',
+    describe: 'List your notes',
+    handler(){
+        notes.listNotes();
+    }
+});
+
+//for read note
+yargs.command({
+    command: 'read',
+    describe: 'Read a note',
+    builder: {
+        title: {
+            'describe': 'Note title',
+            demandOption: true,
+            type: 'string',
+        },
+    },
+    handler(argv){
+        notes.readNote(argv.title);
     }
 });
 
