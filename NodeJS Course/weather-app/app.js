@@ -1,4 +1,5 @@
-// const request = require('postman-request');
+const request = require('postman-request');
+const geocode = require('./utils/geocode')
 // const url ='http://api.weatherstack.com/current?access_key=dcc0349c8a5d890b23e36e096aebb40b&query=37.8267,-122.4233';
 
 // request({url: url, json: true}, (error, response) => {
@@ -17,36 +18,30 @@
 
 //for geocoding
 
-const http = require('http');
-const request = require('postman-request');
 
-const geoCodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYmttYW5vajEyMyIsImEiOiJjbGVqZHVyazIwYWozM3FrNWtha3V0dWd1In0.ON5NDAiHEB-U39tW3gfqKw';
 
-request({uri: geoCodeUrl, json: true}, (error, response) => {
-    if(error){
-        console.log('Unable to connect to location service');
 
-    } else if(response.body.features.length === 0){
-        console.log('Unable to find location. Try another search');
+// const geoCodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYmttYW5vajEyMyIsImEiOiJjbGVqZHVyazIwYWozM3FrNWtha3V0dWd1In0.ON5NDAiHEB-U39tW3gfqKw';
 
-    } else {
-        const latitude = response.body.features[0].center[1];
-        const longitude = response.body.features[0].center[0];
+// request({uri: geoCodeUrl, json: true}, (error, response) => {
+//     if(error){
+//         console.log('Unable to connect to location service');
 
-        console.log(latitude, longitude);
-    }
+//     } else if(response.body.features.length === 0){
+//         console.log('Unable to find location. Try another search');
+
+//     } else {
+//         const latitude = response.body.features[0].center[1];
+//         const longitude = response.body.features[0].center[0];
+
+//         console.log(latitude, longitude);
+//     }
+// });
+
+
+
+geocode('boston', (error, data) => {
+    console.log('Error', error);
+    console.log('Data', data);
 });
 
-// http.createServer(function(req, res){
-//     const body = 'This is the body of response';
-//     const content_length = body.length;
-//     res.writeHead(200, {
-//         'Content-Type': 'text/plain',
-//         'Content-Length': content_length,
-//     });
-//     res.end(body);
-
-
-// }).listen(3000);
-
-// console.log('Server is running on http://127.0.0.1:3000/');
