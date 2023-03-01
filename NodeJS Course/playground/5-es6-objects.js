@@ -32,11 +32,12 @@ const product = {
 // console.log(stock);
 // console.log(rating);
 
-const transaction = (type, {label, price, stock}) => {
+const transaction = (type, {label, price = 0, stock = 0} = {}) => {
     console.log(type, label, price, stock);
     
 };
 
 transaction('order', product);
+transaction('order');
 
 
